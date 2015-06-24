@@ -1,0 +1,37 @@
+<div class="box">
+	<div class="box-header">
+		<div class="text-center">Due Date Summary</div>
+	</div>
+	<div class="box-contents">
+		<table id="dueDateSummaryTable" ng-table="summaryTableParams" template-pagination="summaryTablePager" class="table table-condensed" style="margin-bottom: 0;">
+			<thead class="header">
+				<tr>
+					<th class="text-center">Due</th>
+					<th class="text-center">Orders</th>
+					<th class="text-center">Bales</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="day in $data" 
+					ng-click="selectDay(day)"
+					ng-class="{selected: day.selected}">
+					<td>{{ day.DUEDATE }}</td>
+					<td class="text-right">{{ day.ORDERS | number }}</td>
+					<td class="text-right">{{ day.BALES | number }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<script type="text/ng-template" id="summaryTablePager">
+    <ul class="pager ng-cloak">
+        <li ng-repeat="page in pages"
+            ng-class="{'disabled': !page.active, 'previous': page.type == 'prev', 'next': page.type == 'next'}"
+            ng-show="page.type == 'prev' || page.type == 'next'" ng-switch="page.type">
+            <a ng-switch-when="prev" ng-click="params.page(page.number)" href="">&laquo; Previous</a>
+            <a ng-switch-when="next" ng-click="params.page(page.number)" href="">Next &raquo;</a>
+        </li>
+    </ul>
+</script>
+
